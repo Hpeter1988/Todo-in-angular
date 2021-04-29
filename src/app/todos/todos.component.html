@@ -1,0 +1,10 @@
+<h2>Things to do</h2>
+<ul class="todos">
+  <li
+    *ngFor="let todo of todos"
+  >
+    <span class="isDone"> finished? </span>
+    <span class="name"> {{todo.name}} </span>
+    <span class="name"> delete </span>
+  </li>
+</ul>
