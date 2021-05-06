@@ -14,7 +14,5 @@ export class AppComponent {
   });
   constructor(){}
 
-  onSubmit() {
-
-  }
+  onSubmit() {}
 }

@@ -1,3 +1,11 @@
-.table {
-  max-width: 25%;
+.todo {
+  width: 100%;
+}
+.checkbox{
+  width:24px;
+  height:24px;
+  margin-right: 5px;
+}
+.delete-btn{
+  margin-left: 5px;
 }
