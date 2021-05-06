@@ -11,6 +11,8 @@ import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { IsInvalidDirective } from './attributeDirectives/is-invalid.directive';
 import { ErrorComponent } from './error/error.component';
 
+// break up  smaller modules eg:. share, and component specific stuff
+
 @NgModule({
   declarations: [
     AppComponent,

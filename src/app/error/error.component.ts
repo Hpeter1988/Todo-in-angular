@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-error',
+  selector: 'appError',
   templateUrl: './error.component.html'
 })
 export class ErrorComponent {
@@ -10,4 +10,6 @@ export class ErrorComponent {
 
   constructor(public activeModal: NgbActiveModal) {
   }
+
+  // make it work somehow
 }

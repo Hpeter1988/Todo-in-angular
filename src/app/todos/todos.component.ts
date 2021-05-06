@@ -29,15 +29,28 @@ export class TodosComponent implements OnInit {
   }
 
   addTodo(newTodo: Todo): void {
-    this.todos.push(newTodo);
+    this.todos.unshift(newTodo);
   }
 
-  updateTodo(todoId: any): void { 
-    console.log(todoId)
-    this.httpCallsService.get<Todo[]>(
+  updateTodo(todo: Todo): void {
+    // add loading while updating not let user press checkbox or change to icons
+    const body: Todo = { ...todo, isDone: !todo.isDone }
+    this.httpCallsService.put<Todo>(
+      `${this.baseUrl}/todos/${todo.id}`,body, this.httpOptions
+    ).subscribe(
+      (updatedTodo: Todo) => {
+       const indexOfUpdatedTodo = this.todos.findIndex( todo => todo.id === updatedTodo.id)
+       this.todos[indexOfUpdatedTodo] = updatedTodo
+      }
+    )
+  }
+
+  deleteTodo(todoId: Number | undefined): void {
+    this.httpCallsService.delete<Todo>(
       `${this.baseUrl}/todos/${todoId}`, this.httpOptions
     ).subscribe(
-      (todos: Todo[]) => this.todos = todos
+      //json server returns an empty object
+      (deletedTodo: Todo) => this.todos = this.todos.filter(todo => todo.id !== todoId)
     )
   }
 }

@@ -21,8 +21,20 @@ export class HttpCallsService {
       .pipe( catchError(this.errorHandler));
   }
 
+  put<T>(url: string, body: any, options: object = {}): Observable<T> {
+    return this.http
+      .put<T>(url, body, { ...options })
+      .pipe( catchError(this.errorHandler));
+  }
+
+  delete<T>(url: string, options: object = {}): Observable<T> {
+    return this.http
+      .delete<T>(url,{ ...options })
+      .pipe( catchError(this.errorHandler));
+  }
+
   private errorHandler(error: HttpErrorResponse): Observable<never> {
-    // todo handle errors
+    // todo handle errors better
     return throwError(error);
   }
 }
