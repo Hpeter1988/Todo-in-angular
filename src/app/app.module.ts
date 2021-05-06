@@ -6,10 +6,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { TodosComponent } from './todos/todos.component';
-import { CreateTodoComponent } from './create-todo/create-todo.component';
+import { TodosComponent } from './components/todos/todos.component';
+import { CreateTodoComponent } from './components/create-todo/create-todo.component';
 import { IsInvalidDirective } from './attributeDirectives/is-invalid.directive';
-import { ErrorComponent } from './error/error.component';
+import { ErrorComponent } from './components/error/error.component';
 
 // break up  smaller modules eg:. share, and component specific stuff
 

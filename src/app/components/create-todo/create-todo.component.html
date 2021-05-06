@@ -1,4 +1,3 @@
-
 <form [formGroup]="addTodoForm" class="col-lg-6 offset-lg-3">
   <div class="row justify-content-center">
     <input
@@ -13,6 +12,7 @@
       Add todo
     </button>
   </div>
+
   <div class="row justify-content-center">
     <ng-container *ngIf="addTodoForm.get('name')?.touched">
       <div class="text-danger" *ngIf="addTodoForm.get('name')?.hasError('required')">This field is required</div>

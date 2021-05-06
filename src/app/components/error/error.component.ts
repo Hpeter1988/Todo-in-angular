@@ -11,5 +11,5 @@ export class ErrorComponent {
   constructor(public activeModal: NgbActiveModal) {
   }
 
-  // make it work somehow
+  // make it work somehow and connect to backend errors
 }

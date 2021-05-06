@@ -2,9 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 
-import { HttpCallsService } from '../services/http-calls.service';
-import { Todo } from '../interfaces/todo';
-import { environment } from '../../environments/environment';
+import { HttpCallsService } from '../../services/http-calls.service';
+import { Todo } from '../../interfaces/todo';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-create-todo',

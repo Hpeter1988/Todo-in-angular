@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +8,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 export class AppComponent {
   title = 'Todo-in-angular';
-    group = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.minLength(4)]),
-  });
-  constructor(){}
 
-  onSubmit() {}
+  constructor(){}
 }

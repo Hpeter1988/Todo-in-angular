@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
-import { HttpCallsService } from '../services/http-calls.service';
-import { Todo } from '../interfaces/todo';
-import { } from '../attributeDirectives/is-invalid.directive'
+import { HttpCallsService } from '../../services/http-calls.service';
+import { Todo } from '../../interfaces/todo';
+import { } from '../../attributeDirectives/is-invalid.directive'
 
 @Component({
   selector: 'app-todos',
