@@ -1,0 +1,4 @@
+{
+"/todos/:id": "todos/:id",
+"/authenticate": "user"
+}

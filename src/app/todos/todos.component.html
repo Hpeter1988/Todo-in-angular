@@ -1,10 +1,34 @@
-<h2>Things to do</h2>
-<ul class="todos">
-  <li
-    *ngFor="let todo of todos"
-  >
-    <span class="isDone"> finished? </span>
-    <span class="name"> {{todo.name}} </span>
-    <span class="name"> delete </span>
-  </li>
-</ul>
+<header class="text-center">
+  <h1>My todos</h1>
+</header>
+  <app-create-todo (newTodoAddedEmitter)="addTodo($event)"></app-create-todo>
+<div class="row justify-content-center">
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Is it Done</th>
+      <th>Name</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let todo of todos; let indexOfElem=index;">
+      <th>{{indexOfElem}}</th>
+      <td>
+        <div class="form-check">
+          <input 
+            id="checkboxNoLabel" 
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="todo.isDone"
+            (click)="updateTodo(todo)"
+          >
+        </div>
+      </td>
+      <td>{{todo.name}}</td>
+      <td>delete</td>
+    </tr>
+  </tbody>
+</table>
+</div>

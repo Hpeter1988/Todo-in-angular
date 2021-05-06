@@ -1,0 +1,25 @@
+
+<form [formGroup]="addTodoForm" class="col-lg-6 offset-lg-3">
+  <div class="row justify-content-center">
+    <input
+      appIsInvalid
+      id="addTodo"
+      type="text"
+      class="form-control"
+      formControlName="name"
+      [(ngModel)]="newTodo.name"
+    />
+    <button class="btn btn-primary" type="button" [disabled]="addTodoForm.invalid" (click) = 'createTodo(this.newTodo)'>
+      Add todo
+    </button>
+  </div>
+  <ng-container *ngIf="addTodoForm.get('name')?.touched">
+    <div class="text-danger" *ngIf="addTodoForm.get('name')?.hasError('required')">This field is required</div>
+    <div class="text-danger" *ngIf="addTodoForm.get('name')?.hasError('minlength')">
+      The minimum length is 2 characters
+    </div>
+    <div class="text-danger" *ngIf="addTodoForm.get('name')?.hasError('maxlength')">
+      The maximum length is 50 characters
+    </div>
+  </ng-container>
+</form>
