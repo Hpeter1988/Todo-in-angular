@@ -19,7 +19,7 @@ import { ErrorComponent } from './components/error/error.component';
     TodosComponent,
     CreateTodoComponent,
     IsInvalidDirective,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
