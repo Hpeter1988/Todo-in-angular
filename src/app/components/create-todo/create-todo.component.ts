@@ -14,7 +14,7 @@ export class CreateTodoComponent implements OnInit {
     isDone: false
   };
 
-  @Output() newTodoAddedEmitter = new EventEmitter<Todo>();
+  @Output() newTodoAddedEmitter: EventEmitter<Todo> = new EventEmitter<Todo>();
 
   constructor(private formBuilder: FormBuilder) {}
 

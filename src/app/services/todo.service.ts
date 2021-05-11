@@ -33,7 +33,7 @@ export class TodoService {
     );
   }
 
-  deleteTodo(todoId: number | undefined): Observable<Todo> {
+  deleteTodo(todoId: number | undefined): Observable<any> {
     return this.http
       .delete<Todo>(`${this.url}/${todoId}`)
       .pipe(

@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { CreateTodoComponent } from './components/create-todo/create-todo.component';
 import { IsInvalidDirective } from './attributeDirectives/is-invalid.directive';
-import { ErrorComponent } from './components/error/error.component';
 
 // break up  smaller modules eg:. share, and component specific stuff
 
@@ -19,7 +18,6 @@ import { ErrorComponent } from './components/error/error.component';
     TodosComponent,
     CreateTodoComponent,
     IsInvalidDirective,
-    ErrorComponent,
   ],
   imports: [
     BrowserModule,
