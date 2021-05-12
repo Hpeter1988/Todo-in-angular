@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { CreateTodoComponent } from './components/create-todo/create-todo.component';
 import { IsInvalidDirective } from './attributeDirectives/is-invalid.directive';
+import { ConfirmDeleteModal } from './components/confirm-delete/confirm-delete.component';
 
 // break up  smaller modules eg:. share, and component specific stuff
 
@@ -18,6 +19,7 @@ import { IsInvalidDirective } from './attributeDirectives/is-invalid.directive';
     TodosComponent,
     CreateTodoComponent,
     IsInvalidDirective,
+    ConfirmDeleteModal,
   ],
   imports: [
     BrowserModule,

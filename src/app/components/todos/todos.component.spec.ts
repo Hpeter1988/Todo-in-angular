@@ -14,7 +14,7 @@ export class MockTodoService {
 
   updateTodo (todo: Todo): void {}
 
-  deleteTodo(todoId: number | undefined): any {}
+  openDeleteConfirmationModal(todoId: number | undefined): any {}
 }
 
 @Component({

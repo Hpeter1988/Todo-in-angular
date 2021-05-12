@@ -17,7 +17,7 @@
       >
       <div>{{todo.name}}</div>
       <span>
-        <button class="btn  btn-danger delete-btn" type="button" (click) = 'deleteTodo(todo.id)'>
+        <button class="btn  btn-danger delete-btn" type="button" (click) = 'openDeleteConfirmationModal(todo)'>
           Delete
         </button>
       </span>

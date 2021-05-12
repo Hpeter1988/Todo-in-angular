@@ -29,7 +29,7 @@ export class CreateTodoComponent implements OnInit {
   }
 
   blur(event: Event): void {
-    const element = event.currentTarget as HTMLInputElement;
-    element.blur();
+    const inputField = event.currentTarget as HTMLInputElement;
+    inputField.blur();
   }
 }

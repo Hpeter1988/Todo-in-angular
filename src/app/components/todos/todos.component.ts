@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../interfaces/todo';
+import { ConfirmDeleteModal } from '../confirm-delete/confirm-delete.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-todos',
@@ -10,7 +12,7 @@ import { Todo } from '../../interfaces/todo';
 export class TodosComponent implements OnInit {
   todos: Todo[] = [];
 
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService, public modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.getTodos();
@@ -37,5 +39,14 @@ export class TodosComponent implements OnInit {
     this.todoService.deleteTodo(todoId).subscribe(
       () => this.todos = this.todos.filter(todo => todo.id !== todoId)
     )
+  }
+
+  openDeleteConfirmationModal(todo: Todo): void {  
+      const modalRef = this.modalService.open(ConfirmDeleteModal);
+      modalRef.componentInstance.todo = todo;
+
+      modalRef.componentInstance.confirmDeleteTodoEmitter.subscribe((todoId: number | undefined) => {
+        this.deleteTodo(todoId)
+      })
   }
 }
