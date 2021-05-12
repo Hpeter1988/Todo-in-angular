@@ -7,8 +7,14 @@
       class="form-control"
       formControlName="name"
       [(ngModel)]="newTodo.name"
+      (keydown.enter)="addTodoForm.invalid ? blur($event) : createTodo(this.newTodo)"
     />
-    <button class="btn btn-primary" type="button" [disabled]="addTodoForm.invalid" (click) = 'createTodo(this.newTodo)'>
+    <button
+      class="btn btn-primary"
+      type="button"
+      [disabled]="addTodoForm.invalid"
+      (click) = 'createTodo(this.newTodo)'
+    >
       Add todo
     </button>
   </div>

@@ -25,6 +25,11 @@ export class CreateTodoComponent implements OnInit {
   ngOnInit(): void {}
 
   createTodo(newTodo: Todo): void {
-    this.newTodoAddedEmitter.emit(newTodo)
+    this.newTodoAddedEmitter.emit(newTodo);
+  }
+
+  blur(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    element.blur();
   }
 }
