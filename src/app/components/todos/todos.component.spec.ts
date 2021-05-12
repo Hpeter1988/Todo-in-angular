@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { TodosComponent } from './todos.component';
 import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../interfaces/todo';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export class MockTodoService {
   getTodos(): void {}
@@ -14,7 +14,9 @@ export class MockTodoService {
 
   updateTodo (todo: Todo): void {}
 
-  openDeleteConfirmationModal(todoId: number | undefined): any {}
+  deleteTodo (todoId: number | undefined): void {}
+
+  openDeleteConfirmationModal(todo: Todo): any {}
 }
 
 @Component({
@@ -27,6 +29,20 @@ export class MockCreateTodoComponent {
   @Output() public newTodoAddedEmitter: EventEmitter<Todo> = new EventEmitter<Todo>();
   public onClick(): void {
     this.newTodoAddedEmitter.emit(mockTodos[0])
+  }
+}
+
+@Component({
+  selector: 'app-confirm-delete',
+  template: '<button class="mockConfirmTodoDelete" (click)="onClick()">Create</button>',
+})
+export class MockConfirmDeleteModal { 
+  constructor() {}
+  @Input() todo!: Todo;
+  @Output() confirmDeleteTodoEmitter: EventEmitter<number> = new EventEmitter<number>();
+
+  public onClick(): void {
+    this.confirmDeleteTodoEmitter.emit(mockTodos[0].id)
   }
 }
 
@@ -85,7 +101,7 @@ describe('TodosComponent', () => {
   
   }));
 
-  it('Check if child component emits event calls createTodo', fakeAsync(() => {
+  it('Check if creatTodo child component emit event calls createTodo', fakeAsync(() => {
     spyOn(component, 'createTodo');
   
     const createButton = fixture.nativeElement.querySelector('.mockCreateTodo');
@@ -93,6 +109,15 @@ describe('TodosComponent', () => {
     tick();
     expect(component.createTodo).toHaveBeenCalledWith(mockTodos[0]);
   
-    // test todo after popup implemented
+  }));
+
+  it('Check if delete button clicked openDeleteConfirmationModal method called', fakeAsync(() => {
+    spyOn(component, 'openDeleteConfirmationModal');
+  
+    const deleteButton = fixture.nativeElement.querySelector('.delete-btn');
+    deleteButton.click();
+    tick();
+    expect(component.openDeleteConfirmationModal).toHaveBeenCalledWith(mockTodos[0]);
+
   }));
 });
