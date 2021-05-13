@@ -1,23 +1,34 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { TodosComponent } from './todos.component';
 import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../interfaces/todo';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 export class MockTodoService {
-  getTodos(): void {}
+  getTodos(): Observable<Todo[]> {
+    return of([])
+  }
 
   createTodo(todo: Todo): void {}
 
   updateTodo (todo: Todo): void {}
 
-  deleteTodo (todoId: number | undefined): void {}
+  deleteTodo (todoId: number | undefined): any {}
 
   openDeleteConfirmationModal(todo: Todo): any {}
-}
+};
+
+class mockNgbModal {
+  open(): void {}
+};
+
+class MockNgbModalRef {
+  componentInstance = { confirmDeleteTodoEmitter: new EventEmitter<any>() };
+};
 
 @Component({
   selector: 'app-create-todo',
@@ -29,20 +40,6 @@ export class MockCreateTodoComponent {
   @Output() public newTodoAddedEmitter: EventEmitter<Todo> = new EventEmitter<Todo>();
   public onClick(): void {
     this.newTodoAddedEmitter.emit(mockTodos[0])
-  }
-}
-
-@Component({
-  selector: 'app-confirm-delete',
-  template: '<button class="mockConfirmTodoDelete" (click)="onClick()">Create</button>',
-})
-export class MockConfirmDeleteModal { 
-  constructor() {}
-  @Input() todo!: Todo;
-  @Output() confirmDeleteTodoEmitter: EventEmitter<number> = new EventEmitter<number>();
-
-  public onClick(): void {
-    this.confirmDeleteTodoEmitter.emit(mockTodos[0].id)
   }
 }
 
@@ -63,21 +60,23 @@ describe('TodosComponent', () => {
   let component: TodosComponent;
   let fixture: ComponentFixture<TodosComponent>;
   let todoService: TodoService;
+  let modalService: NgbModal;
+  let mockModalRef: MockNgbModalRef = new MockNgbModalRef();
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [TodosComponent, MockCreateTodoComponent],
       imports: [RouterTestingModule.withRoutes([])],
-      providers: [{ provide: TodoService, useClass: MockTodoService }],
+      providers: [
+        { provide: TodoService, useClass: MockTodoService },
+        { provide: NgbModal, useClass: mockNgbModal }
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    modalService = TestBed.inject(NgbModal);
     todoService = TestBed.inject(TodoService);
-    spyOn(todoService, 'getTodos').and.returnValue( of(mockTodos) );
-    spyOn(todoService, 'createTodo').and.returnValue( of(mockTodos[0]) );
-    spyOn(todoService, 'updateTodo').and.returnValue( of(mockTodos[0]) );
-
     fixture = TestBed.createComponent(TodosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -87,37 +86,57 @@ describe('TodosComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('check if no li element displayed if no todos returned', () => {
+    expect(fixture.nativeElement.querySelectorAll('li').length).toBe(0);
+  });
+
   it('check if todos displayed', () => {
+     spyOn(todoService, 'getTodos').and.returnValue( of(mockTodos) )
+     component.ngOnInit();
+     fixture.detectChanges();
+
     expect(fixture.nativeElement.querySelectorAll('li').length).toBe(2);
   });
 
-  it('if checkbox clicked updateTodo called', fakeAsync(() => {
+  it('if checkbox clicked updateTodo called', () => {
+    spyOn(todoService, 'getTodos').and.returnValue( of(mockTodos) );
+    component.ngOnInit();
+    fixture.detectChanges();
     spyOn(component, 'updateTodo');
   
     const firstCheckBox = fixture.nativeElement.querySelector('input');
     firstCheckBox.click();
-    tick();
     expect(component.updateTodo).toHaveBeenCalledOnceWith(mockTodos[0]);
-  
-  }));
+  });
 
-  it('Check if creatTodo child component emit event calls createTodo', fakeAsync(() => {
-    spyOn(component, 'createTodo');
+  it('Check if creatTodo child component emit event calls createTodo', () => {
+    spyOn(component, 'createTodo').and.callThrough();
   
     const createButton = fixture.nativeElement.querySelector('.mockCreateTodo');
     createButton.click();
-    tick();
-    expect(component.createTodo).toHaveBeenCalledWith(mockTodos[0]);
-  
-  }));
 
-  it('Check if delete button clicked openDeleteConfirmationModal method called', fakeAsync(() => {
-    spyOn(component, 'openDeleteConfirmationModal');
+    expect(component.createTodo).toHaveBeenCalledWith(mockTodos[0]);
+  });
+
+  it('Check if delete button clicked openDeleteConfirmationModal method called', () => {
+    spyOn(todoService, 'getTodos').and.returnValue( of(mockTodos) );
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    spyOn(component, 'openDeleteConfirmationModal').and.callThrough();
   
     const deleteButton = fixture.nativeElement.querySelector('.delete-btn');
     deleteButton.click();
-    tick();
-    expect(component.openDeleteConfirmationModal).toHaveBeenCalledWith(mockTodos[0]);
 
-  }));
+    expect(component.openDeleteConfirmationModal).toHaveBeenCalledWith(mockTodos[0]);
+  });
+
+  it('Check if delete confirmed deleteVisit method is called', () => {
+    spyOn(modalService, 'open').and.returnValue(mockModalRef as NgbModalRef);
+    spyOn(component, 'deleteTodo')
+
+    component.openDeleteConfirmationModal(mockTodos[0]);
+    mockModalRef.componentInstance.confirmDeleteTodoEmitter.emit(mockTodos[0].id);
+    expect(component.deleteTodo).toHaveBeenCalledWith(mockTodos[0].id);
+  });
 });
