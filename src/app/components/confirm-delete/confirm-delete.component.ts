@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Todo } from '../../interfaces/todo';
 
 @Component({
@@ -9,13 +9,13 @@ import { Todo } from '../../interfaces/todo';
 })
 export class ConfirmDeleteModal {
 
-  constructor(public activeModal: NgbActiveModal, public modalService: NgbModal) { }
+  constructor(private modalService: NgbActiveModal) { }
 
   @Input() todo!: Todo;
   @Output() confirmDeleteTodoEmitter: EventEmitter<number> = new EventEmitter<number>();
 
   close(){
-    this.modalService.dismissAll();
+    this.modalService.close();
   }
 
   confirmDeleteTodo(todoId: number | undefined ){
