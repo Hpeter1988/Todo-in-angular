@@ -29,7 +29,7 @@ export class TodosComponent implements OnInit {
   updateTodo(todo: Todo): void {
     this.todoService.updateTodo(todo).subscribe((updatedTodo: Todo) => {
       const indexOfUpdatedTodo = this.todos.findIndex(
-        (todo) => todo.id === updatedTodo.id
+        (todo) => todo.id === updatedTodo?.id
       );
       this.todos[indexOfUpdatedTodo] = updatedTodo;
     });
