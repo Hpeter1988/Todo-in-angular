@@ -1,0 +1,6 @@
+<ngb-toast class="text-center" id="toast" *ngIf="show" [autohide]="false" (show)="show">
+  <p>Oops something went wrong.</p>
+  <button class="btn  btn-danger delete-btn" type="button" (click) = '(closeError())'>
+    close
+  </button>
+</ngb-toast>

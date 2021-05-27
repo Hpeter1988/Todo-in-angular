@@ -1,0 +1,9 @@
+#toast { 
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  z-index: 2;
+  background-color: white;
+}

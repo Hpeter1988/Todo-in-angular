@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -63,7 +62,7 @@ describe('CreateTodoComponent', () => {
     it('if input valid add button must call createTodo', () => {
       component.addTodoForm.patchValue({name: 'aa'});
       fixture.detectChanges();
-      
+
       spyOn(component, 'createTodo')
 
       const addButton = fixture.nativeElement.querySelector('.btn');

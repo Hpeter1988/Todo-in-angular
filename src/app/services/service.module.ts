@@ -33,4 +33,4 @@ import { ErrorToastComponent } from './components/error-toast/error-toast.compon
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class serviceModule { }
