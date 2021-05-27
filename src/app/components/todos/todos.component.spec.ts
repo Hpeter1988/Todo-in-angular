@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
 import { TodosComponent } from './todos.component';
-import { TodoService } from '../../services/todo.service';
+import { TodoService } from '../../services/todo/todo.service';
 import { Todo } from '../../interfaces/todo';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -154,7 +154,7 @@ describe('TodosComponent', () => {
     component.updateTodo(mockUpdatedTodo)
 
     fixture.detectChanges();
-    
+    console.log(component.todos)
     expect(component.todos[0]).toBe(mockUpdatedTodo);
   });
 

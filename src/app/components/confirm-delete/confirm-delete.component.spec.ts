@@ -11,17 +11,20 @@ class MockNgbActiveModal {
 describe('ConfirmDeleteComponent', () => {
   let component: ConfirmDeleteModal;
   let fixture: ComponentFixture<ConfirmDeleteModal>;
+  let modalService : NgbActiveModal;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ConfirmDeleteModal ],
-      providers: [{ provide: NgbActiveModal, useClass: MockNgbActiveModal }],
+      providers: [{provide: NgbActiveModal, useClass: MockNgbActiveModal}],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ConfirmDeleteModal);
+    modalService = TestBed.inject(NgbActiveModal);
+
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -73,12 +76,10 @@ describe('ConfirmDeleteComponent', () => {
     expect(component.close).toHaveBeenCalled();
   });
 
-  it('must call close method if close button clicked', () => {
-    spyOn(component, 'close')
+  it('must call close of modalService if close method called', () => {
+    spyOn(modalService, 'close')
+    component.close();
 
-    const closeButton = fixture.nativeElement.querySelector('.close');
-    closeButton.click();
-
-    expect(component.close).toHaveBeenCalled();
+    expect(modalService.close).toHaveBeenCalled();
   });
 });

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Todo } from '../interfaces/todo';
-import { environment } from '../../environments/environment';
-import { LoggerService } from './logger.service';
+import { Todo } from '../../interfaces/todo';
+import { environment } from '../../../environments/environment';
+import { LoggerService } from '../logger/logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class TodoService {
   }
 
   createTodo (todo: Todo): Observable<Todo> {
-    return this.http.post<Todo>(this.url + '12', todo).pipe(
+    return this.http.post<Todo>(this.url, todo).pipe(
       tap(_ => this.loggerService.success(`Created successfully`)),
       catchError(error => this.loggerService.error(error))
       );

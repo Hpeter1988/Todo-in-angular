@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { CreateTodoComponent } from './create-todo.component';
+import { Todo } from '../../interfaces/todo';
+import { By } from '@angular/platform-browser';
 
 describe('CreateTodoComponent', () => {
   let component: CreateTodoComponent;
@@ -69,5 +71,34 @@ describe('CreateTodoComponent', () => {
       addButton.click();
 
       expect(component.createTodo).toHaveBeenCalled();
+    });
+
+    it('should emit event if createTodo', () => {
+      const mockTodo: Todo = {
+        name: 'Shopping',
+        isDone: false
+      }
+
+      spyOn(component.newTodoAddedEmitter, 'emit');
+
+      component.createTodo(mockTodo);
+      expect(component.newTodoAddedEmitter.emit).toHaveBeenCalledWith(mockTodo)
+    });
+
+    it('should blur element if blur called', () => {
+      const addTodoInput = fixture.nativeElement.querySelector('input');
+      const inputAsDebugelement = fixture.debugElement.queryAll(By.css('input'))[0];
+      const event = {
+        currentTarget: addTodoInput as HTMLInputElement
+      }
+
+      spyOn(event.currentTarget, 'blur')
+    
+      inputAsDebugelement.triggerEventHandler('focus', null);
+      fixture.detectChanges();
+
+      component.blur(event as unknown as Event);
+
+      expect(event.currentTarget.blur).toHaveBeenCalled()
     });
 });

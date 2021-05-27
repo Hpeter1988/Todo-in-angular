@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoService } from '../../services/todo.service';
+import { TodoService } from '../../services/todo/todo.service';
 import { Todo } from '../../interfaces/todo';
 import { ConfirmDeleteModal } from '../confirm-delete/confirm-delete.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +19,7 @@ export class TodosComponent implements OnInit {
   }
 
   getTodos(): void {
-    this.todoService.getTodos().subscribe((todos) => (this.todos = todos));
+    this.todoService.getTodos().subscribe((todos) => (this.todos = todos.reverse()));
   }
 
   createTodo(newTodo: Todo): void {

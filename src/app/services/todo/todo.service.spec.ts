@@ -4,8 +4,8 @@ import { ErrorObserver } from 'rxjs/internal/types';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { TodoService } from './todo.service';
-import { environment } from '../../environments/environment';
-import { Todo } from '../interfaces/todo';
+import { environment } from '../../../environments/environment';
+import { Todo } from '../../interfaces/todo';
 
 describe('TODO SERVICE', () => {
   let service: TodoService;

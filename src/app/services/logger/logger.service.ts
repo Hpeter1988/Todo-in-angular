@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { ErrorService } from './error.service';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class LoggerService {
     private errorService: ErrorService,
   ) { }
 
-  success(massage: string):void {
-    console.log(massage)
+  success(message: string):void {
+    console.log(message)
   }
 
   error(error: Error):Observable<never> {
