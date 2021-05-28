@@ -1,4 +1,4 @@
-<form [formGroup]="addTodoForm" class="col-lg-6 offset-lg-3">
+<form [formGroup]="addTodoForm" class="col-lg-6 offset-lg-3"  (ngSubmit)="onSubmit(this.newTodo)">
   <div class="row justify-content-center">
     <input
       appIsInvalid
@@ -7,13 +7,9 @@
       class="form-control"
       formControlName="name"
       [(ngModel)]="newTodo.name"
-      (keydown.enter)="addTodoForm.invalid ? blur($event) : createTodo(this.newTodo)"
     />
     <button
       class="btn btn-primary"
-      type="button"
-      [disabled]="addTodoForm.invalid"
-      (click) = 'createTodo(this.newTodo)'
     >
       Add todo
     </button>

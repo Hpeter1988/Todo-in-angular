@@ -95,6 +95,7 @@ describe('CreateTodoComponent', () => {
       spyOn(event.currentTarget, 'blur')
     
       inputAsDebugelement.triggerEventHandler('focus', null);
+
       fixture.detectChanges();
 
       component.blur(event as unknown as Event);

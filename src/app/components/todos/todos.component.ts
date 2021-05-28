@@ -11,10 +11,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TodosComponent implements OnInit {
   todos: Todo[] = [];
-
+  foo = false;
   constructor(private todoService: TodoService, public modalService: NgbModal) {}
 
   ngOnInit(): void {
+    this.foo = true;
     this.getTodos();
   }
 

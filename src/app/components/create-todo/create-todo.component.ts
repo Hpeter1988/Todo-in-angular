@@ -24,12 +24,12 @@ export class CreateTodoComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  createTodo(newTodo: Todo): void {
-    this.newTodoAddedEmitter.emit(newTodo);
-  }
+  onSubmit(newTodo: Todo): void {
+    this.addTodoForm.markAllAsTouched();
 
-  blur(event: Event): void {
-    const inputField = event.currentTarget as HTMLInputElement;
-    inputField.blur();
+    if(this.addTodoForm.valid){
+      this.addTodoForm.reset();
+      this.newTodoAddedEmitter.emit(newTodo);
+    }
   }
 }
